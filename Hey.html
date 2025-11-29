@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Manognya ⋆. 𐙚 ̊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Lana Del Rey / Coquette / Vintage Art Vibe */
+        :root {
+            --vintage-cream: #fbf7f5;
+            --polaroid-bg: #fff;
+            --polaroid-border: #f5f5f4;
+            --soft-rose: #eecbcb;
+            --deep-red: #5e0b15;
+            --faded-ink: #2c2c2c;
+            --gold: #d4af37;
+            --overlay-opacity: 0.08;
+            --btn-text: #fbf7f5;
+            --btn-bg: #2c2c2c;
+        }
+
+        [data-theme="dark"] {
+            --vintage-cream: #1a1614;
+            --polaroid-bg: #262220;
+            --polaroid-border: #383230;
+            --faded-ink: #e8e4e1;
+            --deep-red: #ffb7b2; /* Lighter pink/red for dark mode contrast */
+            --overlay-opacity: 0.15;
+            --btn-text: #1a1614;
+            --btn-bg: #e8e4e1;
+        }
+
+        body {
+            background-color: var(--vintage-cream);
+            color: var(--faded-ink);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Film Grain Overlay */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("https://images.unsplash.com/photo-1516575150278-77136aed6920?q=80&w=1000&auto=format&fit=crop");
+            opacity: var(--overlay-opacity);
+            z-index: 50;
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-family: 'Cinzel', serif;
+        }
+        .handwritten {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-element {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.5s; }
+        .delay-2 { animation-delay: 1.5s; }
+        .delay-3 { animation-delay: 2.5s; }
+        .delay-4 { animation-delay: 3.5s; }
+
+        /* Polaroid Style Container */
+        .polaroid {
+            background: var(--polaroid-bg);
+            padding: 1rem; 
+            padding-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--polaroid-border);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        /* Custom Button */
+        .vinyl-btn {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--faded-ink);
+            transition: all 0.3s ease;
+        }
+        .vinyl-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* Toggle Button */
+        .theme-toggle {
+            background: rgba(0,0,0,0.05);
+            border: 1px solid var(--faded-ink);
+            color: var(--faded-ink);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Aesthetic Dividers */
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--faded-ink), transparent);
+            margin: 2rem 0;
+            opacity: 0.3;
+        }
+
+        /* Music Player Styling */
+        .music-player {
+            border: 1px solid rgba(120, 120, 120, 0.2);
+            border-radius: 999px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+            color: var(--faded-ink);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative selection:bg-rose-200 selection:text-stone-800 transition-colors duration-500">
+
+    <!-- Ambient Overlay -->
+    <div class="film-grain"></div>
+
+    <!-- Theme Toggle -->
+    <button onclick="toggleTheme()" class="theme-toggle fixed top-4 right-4 z-50 p-2 rounded-full hover:scale-110 transition-transform cursor-pointer" aria-label="Toggle Dark Mode">
+        <!-- Moon Icon -->
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 block">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        </svg>
+        <!-- Sun Icon (Hidden by default) -->
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+        </svg>
+    </button>
+
+    <!-- Decorative Corner Elements -->
+    <div class="fixed top-4 left-4 text-2xl opacity-50 z-0 text-[var(--faded-ink)]">𐙚</div>
+    <div class="fixed bottom-4 left-4 text-2xl opacity-50 z-0 text-[var(--faded-ink)]">⁺˚</div>
+    <div class="fixed bottom-4 right-4 text-2xl opacity-50 z-0 text-[var(--faded-ink)]">༘⋆</div>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 w-full max-w-md mx-auto space-y-8 pb-20">
+        
+        <!-- Fake Music Player Header -->
+        <div class="fade-in flex justify-center w-full mb-8">
+            <div class="music-player flex items-center gap-3 text-xs tracking-widest uppercase">
+                <span class="animate-spin duration-[3000ms]">❂</span>
+                <span>Now Playing: Video Games</span>
+                <span class="opacity-50">3:42</span>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <header class="text-center fade-in delay-1">
+            <h1 class="text-4xl md:text-5xl text-[var(--deep-red)] tracking-tight floating-element">
+                Hello Manognya
+            </h1>
+            <p class="text-sm mt-2 italic tracking-widest opacity-60">it's Ritish again ୨ৎ</p>
+        </header>
+
+        <!-- Polaroid / Letter Content -->
+        <div class="polaroid fade-in delay-2 mx-2">
+            <!-- Image placeholder / Art vibe -->
+            <div class="w-full mb-6 relative overflow-hidden group">
+                 <!-- REPLACED TEXT WITH ACTUAL IMAGE -->
+                <img src="/Flowers.png" alt="Vintage Art" class="w-full h-48 object-cover sepia-[.3] hover:scale-110 transition-transform duration-700 rounded-sm">
+                <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors pointer-events-none"></div>
+            </div>
+
+            <!-- The Letter -->
+            <div class="px-4 space-y-4 text-lg leading-relaxed">
+                <p>
+                    I don't know how you'll take this, but I really want to get to know you as a person, have long conversations, and share some inside jokes.
+                </p>
+                <p>
+                    I feel like we operate on the same wavelength <span class="text-xl">༘⋆</span>. 
+                </p>
+                <p>
+                     Idk why, but I want you to know you. And I totally understand if you don't want any part of this. But just have a feeling that we might be good friends.
+                </p>
+                
+                <div class="divider-line"></div>
+
+                <p class="font-semibold text-[var(--deep-red)]">
+                    On that note, I respectfully want to ask you out on a date this <span class="italic text-xl font-serif border-b border-[var(--deep-red)]">December 8th</span> <span class="text-xl">⋆</span>.
+                </p>
+                <p>
+                    I know we both live in different cities, but we can go to this nice cafe called <b class="font-serif text-xl">Google Meet</b> <span class="text-xl">𐙚 ̊</span>.
+                </p>
+                <p class="text-right italic mt-4 text-base opacity-80">
+                    A virtual date, perhaps. ⁺˚
+                </p>
+            </div>
+        </div>
+
+        <!-- Interaction Area -->
+        <div class="fade-in delay-3 text-center space-y-6 pt-4">
+            <p class="handwritten text-3xl text-[var(--deep-red)]">What do you think?</p>
+            
+            <div class="flex flex-col gap-4 px-8">
+                <button onclick="handleAccept()" class="vinyl-btn py-3 px-8 rounded-full font-serif tracking-widest uppercase text-sm shadow-lg">
+                    Yes 𐙚
+                </button>
+                <button onclick="handleMaybe()" class="text-xs tracking-widest uppercase opacity-50 hover:opacity-100 transition-opacity p-2">
+                    Let me think about it...
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Success Modal Overlay -->
+    <!-- FIXED: Added style attribute to enforce solid background color from CSS variable and increased z-index -->
+    <div id="successModal" style="background-color: var(--vintage-cream);" class="fixed inset-0 z-[60] hidden flex-col items-center justify-center text-center p-6 opacity-0 transition-opacity duration-500">
+        <div class="text-6xl mb-4 animate-bounce">𐙚</div>
+        <h2 class="text-4xl text-[var(--deep-red)] font-serif mb-4">Thqanks!.</h2>
+        <p class="text-xl font-light mb-8 max-w-xs text-[var(--faded-ink)]">Opening your calendar...</p>
+        <p class="text-sm opacity-50 tracking-widest text-[var(--faded-ink)]">Ritish</p>
+        <div class="mt-8 text-2xl animate-pulse text-[var(--faded-ink)]">
+            ⋆ ˚ ｡ ⋆ ｡ ˚ ☾ ˚ ｡ ⋆
+        </div>
+        <button onclick="closeModal()" class="mt-12 text-xs border-b border-[var(--faded-ink)] pb-1 text-[var(--faded-ink)]">Close</button>
+    </div>
+
+    <script>
+        // --- 1. Dark Mode Logic ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const moon = document.getElementById('moon-icon');
+            const sun = document.getElementById('sun-icon');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                moon.classList.remove('hidden');
+                sun.classList.add('hidden');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                moon.classList.add('hidden');
+                sun.classList.remove('hidden');
+            }
+        }
+
+        // --- 2. Google Calendar Logic ---
+        function openCalendar() {
+            // Title: Date with Ritish
+            // Date: Dec 8th, 2025 (Assuming upcoming Dec 8th)
+            // Time: 7:00 PM - 8:00 PM (1900-2000)
+            // Location: Google Meet
+            const title = encodeURIComponent("Ritish");
+            const details = encodeURIComponent("Thanks. Can't wait! ⋆");
+            const location = encodeURIComponent("Google Meet");
+            // Format: YYYYMMDDTHHMMSSZ
+            const startDate = "20251208T190000"; 
+            const endDate = "20251208T200000";
+            
+            const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
+            
+            window.open(calendarUrl, '_blank');
+        }
+
+        function handleAccept() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Trigger reflow to enable transition
+            void modal.offsetWidth;
+            
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            
+            // Confetti
+            createEmojiConfetti();
+
+            // Open Calendar after a short delay to let the modal animation start
+            setTimeout(() => {
+                openCalendar();
+            }, 1000);
+        }
+
+        function handleMaybe() {
+            alert("Take your time ⋆. I'll be here.");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('opacity-0');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 500);
+        }
+
+        function createEmojiConfetti() {
+            const emojis = ['⋆', '𐙚', '❀', '♡', '✨', '🌹'];
+            const container = document.body;
+            
+            for (let i = 0; i < 30; i++) {
+                const el = document.createElement('div');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.position = 'fixed';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = '-10vh';
+                el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                el.style.opacity = Math.random();
+                el.style.zIndex = 60;
+                el.style.transition = `top ${Math.random() * 2 + 3}s ease-in, transform ${Math.random() * 2 + 3}s linear`;
+                
+                container.appendChild(el);
+
+                setTimeout(() => {
+                    el.style.top = '110vh';
+                    el.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }, 100);
+
+                setTimeout(() => {
+                    el.remove();
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
